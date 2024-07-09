@@ -103,6 +103,29 @@ const throttling = (func, delay) => {
 
 
 
+#### 实现一个深拷贝
+
+```javascript
+function deepClone(source) {
+  if (typeof source !== 'object' || source == null) {
+    return source;
+  }
+  const target = Array.isArray(source) ? [] : {};
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (typeof source[key] === 'object' && source[key] !== null) {
+        target[key] = deepClone(source[key]);
+      } else {
+        target[key] = source[key];
+      }
+    }
+  }
+  return target;
+}
+```
+
+
+
 #### 如果使用 `map` 处理数组，不用 `return` 会返回什么
 
 `map`方法会返回一个新数组，但该数组的所有元素都会是`undefined`，因为`map`方法依赖于回调函数的返回值来构建新数组中的元素，如果回调函数没有返回值（即默认返回`undefined`），那么新数组的对应位置就会被填充为`undefined`。
